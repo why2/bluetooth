@@ -361,13 +361,18 @@ public class BluetoothChatFragment extends Fragment {
      * @param secure Socket Security type - Secure (true) , Insecure (false)
      */
     private void connectDevice(Intent data, boolean secure) {
-        // Get the device MAC address
+/*        // Get the device MAC address
         String address = data.getExtras()
                 .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
         // Get the BluetoothDevice object
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
         // Attempt to connect to the device
-        mChatService.connect(device, secure);
+        mChatService.connect(device, secure);*/
+        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("00:0A:00:81:71:9C");//平板
+//        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("AC:92:32:72:8C:38");//华为
+//        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("F4:60:E2:C4:5A:DA");//小米
+        // Attempt to connect to the device
+        mChatService.connect(device, false);
     }
 
     @Override
