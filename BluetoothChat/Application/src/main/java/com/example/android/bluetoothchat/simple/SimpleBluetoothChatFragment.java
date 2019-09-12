@@ -341,7 +341,7 @@ public class SimpleBluetoothChatFragment extends Fragment {
      * @param secure Socket Security type - Secure (true) , Insecure (false)
      */
     private void connectDevice(boolean secure) {
-        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("00:0A:00:81:71:9C");//平板
+        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("00:0A:00:81:8B:0D");//平板
 //        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("AC:92:32:72:8C:38");//华为
 //        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("F4:60:E2:C4:5A:DA");//小米
         mChatService.connect(device, secure);
