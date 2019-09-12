@@ -24,6 +24,10 @@ import com.example.android.bluetoothchat.BluetoothChatService;
 import com.example.android.bluetoothchat.Constants;
 import com.example.android.bluetoothchat.R;
 import com.example.android.common.logger.Log;
+import com.polidea.rxandroidble2.RxBleClient;
+import com.polidea.rxandroidble2.RxBleDevice;
+
+import io.reactivex.disposables.Disposable;
 
 public class SimpleChatActivity extends FragmentActivity {
     private static final String TAG = "BluetoothChatFragment";
@@ -303,8 +307,8 @@ public class SimpleChatActivity extends FragmentActivity {
      * @param secure Socket Security type - Secure (true) , Insecure (false)
      */
     private void connectDevice(boolean secure) {
-        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("00:0A:00:81:8B:0D");//平板
-//        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("AC:92:32:72:8C:38");//华为
+//        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("00:0A:00:81:8B:0D");//平板
+        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("AC:92:32:72:8C:38");//华为
 //        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice("F4:60:E2:C4:5A:DA");//小米
         mChatService.connect(device, secure);
     }
@@ -315,7 +319,8 @@ public class SimpleChatActivity extends FragmentActivity {
      * @param view
      */
     public void connect(View view) {
-        connectDevice(true);
+        connectDevice(false);
+//        cn();
     }
 
     /**
@@ -324,6 +329,21 @@ public class SimpleChatActivity extends FragmentActivity {
      * @param view
      */
     public void disConnect(View view) {
+        mChatService.stop();
+    }
 
+    public void cn(){
+        RxBleDevice device = RxBleClient.create(this).getBleDevice("00:0A:00:81:8B:0D");
+        Disposable disposable = device.establishConnection(false) // <-- autoConnect flag
+                .subscribe(
+                        rxBleConnection -> {
+                            android.util.Log.e("==================", "connect: ");
+                            // All GATT operations are done through the rxBleConnection.
+                        },
+                        throwable -> {
+                            android.util.Log.e("==================", "connect: ");
+                            // Handle an error here.
+                        }
+                );
     }
 }
